@@ -1,10 +1,12 @@
 package com.andrewchokh.wtsg;
 
+import static java.lang.System.out;
+
+import com.andrewchokh.wtsg.exceptions.JsonFileIOException;
 import com.andrewchokh.wtsg.persistence.models.impl.Product;
+import com.andrewchokh.wtsg.persistence.repository.RepositoryFactory;
+import com.andrewchokh.wtsg.persistence.repository.contracts.ProductRepository;
 import com.github.javafaker.Faker;
-import com.google.gson.Gson;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +14,41 @@ import java.util.UUID;
 
 public class Main {
 
-    public static void main(String[] args) {
-        generateProducts();
+    public static void main(String[] args) throws JsonFileIOException {
+        List<Product> products = generateProducts(10);
+
+        RepositoryFactory jsonRepositoryFactory = RepositoryFactory
+            .getRepositoryFactory(RepositoryFactory.JSON);
+        ProductRepository productRepository = jsonRepositoryFactory.getProductRepository();
+
+        // Виведемо створених користувачів
+
+        int i = 0;
+        for (Product product : products) {
+            productRepository.add(product);
+            if (i == 3) {
+                productRepository.remove(product);
+            }
+            if (i == 5) {
+                productRepository.remove(product);
+            }
+            if (i == 7) {
+                productRepository.remove(product);
+            }
+            i++;
+        }
+
+        productRepository.findAll().forEach(out::println);
+
+        // Nessesary line! Must be in the end of main method.
+        jsonRepositoryFactory.commit();
     }
 
-    static void generateProducts() {
+    public static List<Product> generateProducts(int count) {
         Faker faker = new Faker();
         List<Product> products = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < count; i++) {
             String name = faker.commerce().productName();
             BigDecimal price = BigDecimal.valueOf(faker.number().randomDouble(2, 1, 100));
             double weight = faker.number().randomDouble(2, 0, 10);
@@ -31,22 +59,9 @@ public class Main {
         }
 
         for (Product product : products) {
-            System.out.println(product);
+            out.println(product);
         }
 
-        writeToJson(products, "products.json");
-    }
-
-    static void writeToJson(List<?> objects, String pathToFile) {
-        Gson gson = new Gson();
-        String json = gson.toJson(objects);
-
-        try (FileWriter file = new FileWriter(pathToFile)) {
-            file.write(json);
-            System.out.println("Successfully Copied JSON Object to File...");
-            System.out.println("JSON Object: " + json);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return products;
     }
 }
