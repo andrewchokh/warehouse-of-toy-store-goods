@@ -109,6 +109,10 @@ public class User extends Model {
         return true;
     }
 
+    public String getFullName() {
+        return "%s %s".formatted(firstName, lastName);
+    }
+
     @Override
     public String toString() {
         return "User{" +
