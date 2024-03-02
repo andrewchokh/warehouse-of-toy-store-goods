@@ -4,7 +4,6 @@ import static java.lang.System.out;
 
 import com.andrewchokh.wtsg.persistence.exception.JsonFileIOException;
 import com.andrewchokh.wtsg.persistence.model.impl.Product;
-import com.andrewchokh.wtsg.persistence.model.impl.Role;
 import com.andrewchokh.wtsg.persistence.model.impl.User;
 import com.andrewchokh.wtsg.persistence.repository.RepositoryFactory;
 import com.andrewchokh.wtsg.persistence.repository.contracts.ProductRepository;
@@ -66,7 +65,7 @@ public class Main {
             String email = faker.internet().emailAddress();
             String firstName = faker.name().firstName();
             String lastName = faker.name().lastName();
-            Role role = Role.valueOf("ADMIN");
+            User.Role role = User.Role.valueOf("ADMIN");
 
             User user = new User(UUID.randomUUID(), password, email, firstName, lastName, role);
             users.add(user);
