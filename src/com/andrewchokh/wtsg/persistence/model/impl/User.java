@@ -1,8 +1,8 @@
-package com.andrewchokh.wtsg.persistence.models.impl;
+package com.andrewchokh.wtsg.persistence.model.impl;
 
-import com.andrewchokh.wtsg.exceptions.MessageTemplate;
-import com.andrewchokh.wtsg.exceptions.ModelArgumentException;
-import com.andrewchokh.wtsg.persistence.models.Model;
+import com.andrewchokh.wtsg.persistence.exception.MessageTemplate;
+import com.andrewchokh.wtsg.persistence.exception.ModelArgumentException;
+import com.andrewchokh.wtsg.persistence.model.Model;
 import java.util.UUID;
 
 /**
@@ -21,13 +21,16 @@ public class User extends Model {
     private final String email;
     private String firstName;
     private String lastName;
+    private Role role;
 
-    public User(UUID id, String password, String email, String firstName, String lastName) {
+    public User(UUID id, String password, String email, String firstName, String lastName,
+        Role role) {
         super(id);
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role = role;
     }
 
     public String getPassword() {
@@ -56,6 +59,14 @@ public class User extends Model {
         if (Boolean.TRUE.equals(validateLastName(lastName))) {
             this.lastName = lastName;
         }
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public boolean validatePassword(String password) {
@@ -120,6 +131,25 @@ public class User extends Model {
             ", email='" + email + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
+            ", role=" + role +
             '}';
+    }
+
+    public enum Role {
+        ADMIN("Admin", new Permission(true, true, true, true)),
+        DEFAULT("Default", new Permission(false, true, false, false));
+
+        private String name;
+        private Permission permissions;
+
+        Role(String name, Permission permissions) {
+            this.name = name;
+            this.permissions = permissions;
+        }
+
+        private record Permission(boolean canCreate, boolean canRead, boolean canUpdate,
+                                  boolean canDelete) {
+
+        }
     }
 }
