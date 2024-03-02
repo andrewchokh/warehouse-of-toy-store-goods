@@ -1,4 +1,4 @@
-package com.andrewchokh.wtsg.persistence.models;
+package com.andrewchokh.wtsg.persistence.model;
 
 import java.util.Objects;
 import java.util.UUID;

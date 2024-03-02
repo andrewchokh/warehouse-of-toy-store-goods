@@ -1,6 +1,6 @@
 package com.andrewchokh.wtsg.persistence.repository;
 
-import com.andrewchokh.wtsg.exceptions.JsonFileIOException;
+import com.andrewchokh.wtsg.persistence.exception.JsonFileIOException;
 import com.andrewchokh.wtsg.persistence.repository.contracts.ProductRepository;
 import com.andrewchokh.wtsg.persistence.repository.contracts.UserRepository;
 import com.andrewchokh.wtsg.persistence.repository.contracts.WarehouseRepository;
@@ -13,7 +13,8 @@ public abstract class RepositoryFactory {
     public static final int XML = 2;
     public static final int POSTGRESQL = 3;
 
-    public static RepositoryFactory getRepositoryFactory(int factoryIndex) {
+    public static RepositoryFactory getRepositoryFactory(int factoryIndex)
+        throws JsonFileIOException {
         return switch (factoryIndex) {
             case JSON -> JsonRepositoryFactory.getInstance();
             case XML ->

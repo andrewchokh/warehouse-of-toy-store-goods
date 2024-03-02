@@ -1,4 +1,4 @@
-package com.andrewchokh.wtsg.exceptions;
+package com.andrewchokh.wtsg.persistence.exception;
 
 public enum MessageTemplate {
     MODEL_ARGUMENT("Incorrect field value: %s");

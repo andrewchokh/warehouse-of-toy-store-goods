@@ -1,6 +1,6 @@
 package com.andrewchokh.wtsg.persistence.repository.contracts;
 
-import com.andrewchokh.wtsg.persistence.models.impl.User;
+import com.andrewchokh.wtsg.persistence.model.impl.User;
 import com.andrewchokh.wtsg.persistence.repository.Repository;
 import java.util.Optional;
 

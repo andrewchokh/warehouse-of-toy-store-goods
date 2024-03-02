@@ -1,7 +1,7 @@
 package com.andrewchokh.wtsg.persistence.repository.impl.json;
 
-import com.andrewchokh.wtsg.exceptions.JsonFileIOException;
-import com.andrewchokh.wtsg.persistence.models.Model;
+import com.andrewchokh.wtsg.persistence.exception.JsonFileIOException;
+import com.andrewchokh.wtsg.persistence.model.Model;
 import com.andrewchokh.wtsg.persistence.repository.RepositoryFactory;
 import com.andrewchokh.wtsg.persistence.repository.contracts.ProductRepository;
 import com.andrewchokh.wtsg.persistence.repository.contracts.UserRepository;
@@ -15,10 +15,11 @@ import java.util.Set;
 
 public class JsonRepositoryFactory extends RepositoryFactory {
 
+    private static final JsonInstance instance = JsonInstance.INSTANCE;
     private final Gson gson;
-    private ProductJsonRepositoryImpl productJsonRepositoryImpl;
-    private UserJsonRepositoryImpl userJsonRepositoryImpl;
-    private WarehouseJsonRepositoryImpl warehouseJsonRepositoryImpl;
+    private final ProductJsonRepositoryImpl productJsonRepositoryImpl;
+    private final UserJsonRepositoryImpl userJsonRepositoryImpl;
+    private final WarehouseJsonRepositoryImpl warehouseJsonRepositoryImpl;
 
     private JsonRepositoryFactory() throws JsonFileIOException {
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -30,8 +31,12 @@ public class JsonRepositoryFactory extends RepositoryFactory {
         warehouseJsonRepositoryImpl = new WarehouseJsonRepositoryImpl(gson);
     }
 
-    public static JsonRepositoryFactory getInstance() {
-        return InstanceHolder.INSTANCE;
+    public static JsonRepositoryFactory getInstance() throws JsonFileIOException {
+        if (instance.value == null) {
+            instance.setValue(new JsonRepositoryFactory());
+        }
+
+        return instance.getValue();
     }
 
     @Override
@@ -50,17 +55,13 @@ public class JsonRepositoryFactory extends RepositoryFactory {
     }
 
     @Override
-    public void commit() {
-        try {
-            serializeModels(productJsonRepositoryImpl.getPath(),
-                productJsonRepositoryImpl.findAll());
-            serializeModels(userJsonRepositoryImpl.getPath(),
-                userJsonRepositoryImpl.findAll());
-            serializeModels(warehouseJsonRepositoryImpl.getPath(),
-                warehouseJsonRepositoryImpl.findAll());
-        } catch (JsonFileIOException e) {
-            throw new RuntimeException(e);
-        }
+    public void commit() throws JsonFileIOException {
+        serializeModels(productJsonRepositoryImpl.getPath(),
+            productJsonRepositoryImpl.findAll());
+        serializeModels(userJsonRepositoryImpl.getPath(),
+            userJsonRepositoryImpl.findAll());
+        serializeModels(warehouseJsonRepositoryImpl.getPath(),
+            warehouseJsonRepositoryImpl.findAll());
     }
 
     private <M extends Model> void serializeModels(Path path, Set<M> models)
@@ -70,19 +71,6 @@ public class JsonRepositoryFactory extends RepositoryFactory {
         } catch (IOException e) {
             throw new JsonFileIOException("Не вдалось зберегти дані у json-файл. Детальніше: %s"
                 .formatted(e.getMessage()));
-        }
-    }
-
-    private static class InstanceHolder {
-
-        public static final JsonRepositoryFactory INSTANCE;
-
-        static {
-            try {
-                INSTANCE = new JsonRepositoryFactory();
-            } catch (JsonFileIOException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 }

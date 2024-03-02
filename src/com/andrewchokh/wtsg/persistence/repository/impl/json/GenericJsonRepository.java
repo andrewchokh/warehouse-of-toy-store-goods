@@ -1,7 +1,7 @@
 package com.andrewchokh.wtsg.persistence.repository.impl.json;
 
-import com.andrewchokh.wtsg.exceptions.JsonFileIOException;
-import com.andrewchokh.wtsg.persistence.models.Model;
+import com.andrewchokh.wtsg.persistence.exception.JsonFileIOException;
+import com.andrewchokh.wtsg.persistence.model.Model;
 import com.andrewchokh.wtsg.persistence.repository.Repository;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;

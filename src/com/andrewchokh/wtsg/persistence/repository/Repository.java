@@ -1,6 +1,6 @@
 package com.andrewchokh.wtsg.persistence.repository;
 
-import com.andrewchokh.wtsg.persistence.models.Model;
+import com.andrewchokh.wtsg.persistence.model.Model;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
