@@ -1,4 +1,4 @@
-package com.andrewchokh.wtsg.exceptions;
+package com.andrewchokh.wtsg.persistence.exception;
 
 import java.io.IOException;
 
