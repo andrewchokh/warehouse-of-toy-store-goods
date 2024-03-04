@@ -1,4 +1,4 @@
-package com.andrewchokh.wtsg.persistence.exception;
+package com.andrewchokh.wtsg.exception;
 
 /**
  * The {@code ModelArgumentException} class is a subclass of {@code IllegalArgumentException}. This

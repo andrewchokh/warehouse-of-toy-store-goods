@@ -1,6 +1,6 @@
 package com.andrewchokh.wtsg.persistence.repository;
 
-import com.andrewchokh.wtsg.persistence.exception.JsonFileIOException;
+import com.andrewchokh.wtsg.exception.JsonFileIOException;
 import com.andrewchokh.wtsg.persistence.repository.contracts.ProductRepository;
 import com.andrewchokh.wtsg.persistence.repository.contracts.UserRepository;
 import com.andrewchokh.wtsg.persistence.repository.contracts.WarehouseRepository;
