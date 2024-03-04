@@ -12,6 +12,9 @@
     <orderEntry type="library" name="commons-lang3-3.5" level="project" />
     <orderEntry type="library" name="generex-1.0.2" level="project" />
     <orderEntry type="library" name="snakeyaml-1.23" level="project" />
+    <orderEntry type="library" name="bcrypt-0.3" level="project" />
+    <orderEntry type="library" name="activation-1.1.1" level="project" />
+    <orderEntry type="library" name="javax.mail-1.6.2" level="project" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="70c4fdef-4a20-4595-80fe-6d8a586b3df3" />
