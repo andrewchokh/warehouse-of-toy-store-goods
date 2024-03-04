@@ -1,8 +1,8 @@
-package com.andrewchokh.wtsg.persistence.model.impl;
+package com.andrewchokh.wtsg.model.impl;
 
-import com.andrewchokh.wtsg.persistence.exception.MessageTemplate;
-import com.andrewchokh.wtsg.persistence.exception.ModelArgumentException;
-import com.andrewchokh.wtsg.persistence.model.Model;
+import com.andrewchokh.wtsg.exception.MessageTemplate;
+import com.andrewchokh.wtsg.exception.ModelArgumentException;
+import com.andrewchokh.wtsg.model.Model;
 import java.util.List;
 import java.util.UUID;
 

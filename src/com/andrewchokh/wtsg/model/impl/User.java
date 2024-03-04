@@ -1,8 +1,8 @@
-package com.andrewchokh.wtsg.persistence.model.impl;
+package com.andrewchokh.wtsg.model.impl;
 
-import com.andrewchokh.wtsg.persistence.exception.MessageTemplate;
-import com.andrewchokh.wtsg.persistence.exception.ModelArgumentException;
-import com.andrewchokh.wtsg.persistence.model.Model;
+import com.andrewchokh.wtsg.exception.MessageTemplate;
+import com.andrewchokh.wtsg.exception.ModelArgumentException;
+import com.andrewchokh.wtsg.model.Model;
 import java.util.UUID;
 
 /**
@@ -93,12 +93,7 @@ public class User extends Model {
         return true;
     }
 
-    public Boolean validateEmail() {
-        // TODO: Implement functionality
-        return true;
-    }
-
-    public Boolean validateFirstName(String firstName) {
+    private Boolean validateFirstName(String firstName) {
         String argumentName = "First Name";
 
         if (firstName.isBlank()) {
@@ -109,7 +104,7 @@ public class User extends Model {
         return true;
     }
 
-    public Boolean validateLastName(String lastName) {
+    private Boolean validateLastName(String lastName) {
         String argumentName = "Last Name";
 
         if (lastName.isBlank()) {
@@ -139,8 +134,8 @@ public class User extends Model {
         ADMIN("Admin", new Permission(true, true, true, true)),
         DEFAULT("Default", new Permission(false, true, false, false));
 
-        private String name;
-        private Permission permissions;
+        private final String name;
+        private final Permission permissions;
 
         Role(String name, Permission permissions) {
             this.name = name;
