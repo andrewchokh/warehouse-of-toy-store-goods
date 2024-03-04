@@ -62,6 +62,8 @@ public class JsonRepositoryFactory extends RepositoryFactory {
             userJsonRepositoryImpl.findAll());
         serializeModels(warehouseJsonRepositoryImpl.getPath(),
             warehouseJsonRepositoryImpl.findAll());
+
+
     }
 
     private <M extends Model> void serializeModels(Path path, Set<M> models)

@@ -1,5 +1,6 @@
 package com.andrewchokh.wtsg.service.impl;
 
+import com.andrewchokh.wtsg.exception.MessageTemplate;
 import com.andrewchokh.wtsg.exception.ModelNotFoundException;
 import com.andrewchokh.wtsg.model.Model;
 import com.andrewchokh.wtsg.persistence.repository.Repository;
@@ -19,7 +20,8 @@ public class GenericService<M extends Model> implements Service<M> {
     @Override
     public M get(UUID id) throws Throwable {
         return (M) repository.findById(id).orElseThrow(
-            () -> new ModelNotFoundException("Model has not been found by specified ID."));
+            () -> new ModelNotFoundException(
+                MessageTemplate.MODEL_NOT_FOUND_BY.getTemplate().formatted("ID", id)));
     }
 
     @Override
