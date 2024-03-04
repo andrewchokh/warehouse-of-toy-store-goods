@@ -6,4 +6,6 @@ import com.andrewchokh.wtsg.service.Service;
 public interface ProductService extends Service<Product> {
 
     Product findByName(String name);
+
+
 }
