@@ -23,7 +23,7 @@ public class AuthService {
         }
 
         user = foundedUser;
-        return false;
+        return true;
     }
 
     public Boolean isAuthenticated() {
