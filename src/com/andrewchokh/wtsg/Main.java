@@ -1,6 +1,8 @@
 package com.andrewchokh.wtsg;
 
 import com.andrewchokh.wtsg.exception.JsonFileIOException;
+import com.andrewchokh.wtsg.exception.MessageTemplate;
+import com.andrewchokh.wtsg.exception.SignUpException;
 import com.andrewchokh.wtsg.model.impl.User.Role;
 import com.andrewchokh.wtsg.persistence.repository.RepositoryFactory;
 import com.andrewchokh.wtsg.persistence.repository.contracts.UserRepository;
@@ -25,10 +27,8 @@ public class Main {
             try (Scanner scanner = new Scanner(System.in)) {
                 return scanner.nextLine();
             } catch (Exception e) {
-                ApplicationLogger.warning("Invalid argument for verification code.");
+                throw new SignUpException(MessageTemplate.INVALID_VERIFICATION_CODE.getTemplate());
             }
-
-            return null;
         });
 
         jsonRepositoryFactory.commit();
