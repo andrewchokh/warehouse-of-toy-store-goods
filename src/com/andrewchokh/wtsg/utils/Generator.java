@@ -24,6 +24,8 @@ public class Generator {
             products.add(product);
         }
 
+        ApplicationLogger.info("Generated %d products.".formatted(count));
+
         return products;
     }
 
@@ -41,6 +43,8 @@ public class Generator {
             User user = new User(UUID.randomUUID(), password, email, firstName, lastName, role);
             users.add(user);
         }
+
+        ApplicationLogger.info("Generated %d users.".formatted(count));
 
         return users;
     }
