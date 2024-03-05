@@ -1,14 +1,14 @@
 package com.andrewchokh.wtsg.service.impl;
 
+import com.andrewchokh.wtsg.dto.UserAddDTO;
 import com.andrewchokh.wtsg.exception.MessageTemplate;
 import com.andrewchokh.wtsg.exception.SignUpException;
-import com.andrewchokh.wtsg.model.impl.User;
-import com.andrewchokh.wtsg.persistence.repository.contracts.UserRepository;
+import com.andrewchokh.wtsg.service.contract.SignUpService;
+import com.andrewchokh.wtsg.service.contract.UserService;
 import com.andrewchokh.wtsg.utils.ApplicationLogger;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Properties;
-import java.util.UUID;
 import java.util.function.Supplier;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -18,15 +18,14 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import org.mindrot.bcrypt.BCrypt;
 
-public class SignUpService {
+final class SignUpServiceImpl implements SignUpService {
 
     private static LocalDateTime codeCreationTime;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public SignUpService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    SignUpServiceImpl(UserService userService) {
+        this.userService = userService;
     }
 
     private static void sendVerificationCode(String email, String verificationCode) {
@@ -62,7 +61,7 @@ public class SignUpService {
         }
     }
 
-    public static String generateAndSendVerificationCode(String email) {
+    private static String generateAndSendVerificationCode(String email) {
         String verificationCode = String.valueOf((int) (Math.random() * 900000 + 100000));
 
         sendVerificationCode(email, verificationCode);
@@ -72,21 +71,7 @@ public class SignUpService {
         return verificationCode;
     }
 
-    public void signUp(String firstName, String lastName, String email, String password,
-        User.Role role, Supplier<String> userInput) {
-        String verificationCode = generateAndSendVerificationCode(email);
-
-        verifyCode(userInput.get(), verificationCode);
-
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
-        userRepository.add(
-            new User(UUID.randomUUID(), hashedPassword, email, firstName, lastName, role));
-
-        ApplicationLogger.info("The verification code was confirmed.");
-    }
-
-    private void verifyCode(String inputCode, String generatedCode) {
+    private static void verifyCode(String inputCode, String generatedCode) {
         LocalDateTime currentTime = LocalDateTime.now();
 
         long secondsElapsed = ChronoUnit.SECONDS.between(codeCreationTime, currentTime);
@@ -102,5 +87,14 @@ public class SignUpService {
         }
 
         codeCreationTime = null;
+    }
+
+    public void signUp(UserAddDTO userAddDTO, Supplier<String> userInput) {
+        String verificationCode = generateAndSendVerificationCode(userAddDTO.getEmail());
+        verifyCode(userInput.get(), verificationCode);
+
+        ApplicationLogger.info("The verification code was confirmed.");
+
+        userService.add(userAddDTO);
     }
 }

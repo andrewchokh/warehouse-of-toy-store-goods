@@ -69,30 +69,6 @@ public class User extends Model {
         this.role = role;
     }
 
-    public boolean validatePassword(String password) {
-        String argumentName = "Password";
-
-        if (password == null || password.isEmpty()) {
-            throw new ModelArgumentException(
-                MessageTemplate.MODEL_ARGUMENT.getTemplate().formatted(argumentName));
-        }
-
-        if (password.length() < 8 || password.length() > 24) {
-            throw new ModelArgumentException(
-                MessageTemplate.MODEL_ARGUMENT.getTemplate().formatted(argumentName));
-        }
-
-        // Check if password contains only Latin symbols
-        for (char c : password.toCharArray()) {
-            if (!Character.isLetter(c) || !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
-                throw new ModelArgumentException(
-                    MessageTemplate.MODEL_ARGUMENT.getTemplate().formatted(argumentName));
-            }
-        }
-
-        return true;
-    }
-
     private Boolean validateFirstName(String firstName) {
         String argumentName = "First Name";
 

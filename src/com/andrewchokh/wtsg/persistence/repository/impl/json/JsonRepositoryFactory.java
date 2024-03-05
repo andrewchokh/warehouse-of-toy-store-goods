@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Set;
 
-public class JsonRepositoryFactory extends RepositoryFactory {
+public final class JsonRepositoryFactory extends RepositoryFactory {
 
     private static final JsonInstance instance = JsonInstance.INSTANCE;
     private final Gson gson;

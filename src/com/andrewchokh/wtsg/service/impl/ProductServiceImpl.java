@@ -5,11 +5,11 @@ import com.andrewchokh.wtsg.model.impl.Product;
 import com.andrewchokh.wtsg.persistence.repository.contracts.ProductRepository;
 import com.andrewchokh.wtsg.service.contract.ProductService;
 
-public class ProductServiceImpl extends GenericService<Product> implements ProductService {
+final class ProductServiceImpl extends GenericService<Product> implements ProductService {
 
     private final ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    ProductServiceImpl(ProductRepository productRepository) {
         super(productRepository);
         this.productRepository = productRepository;
     }

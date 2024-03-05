@@ -6,11 +6,11 @@ import com.andrewchokh.wtsg.model.impl.Warehouse;
 import com.andrewchokh.wtsg.persistence.repository.contracts.WarehouseRepository;
 import com.andrewchokh.wtsg.service.contract.WarehouseService;
 
-public class WarehouseServiceImpl extends GenericService<Warehouse> implements WarehouseService {
+final class WarehouseServiceImpl extends GenericService<Warehouse> implements WarehouseService {
 
     private final WarehouseRepository warehouseRepository;
 
-    public WarehouseServiceImpl(WarehouseRepository warehouseRepository) {
+    WarehouseServiceImpl(WarehouseRepository warehouseRepository) {
         super(warehouseRepository);
         this.warehouseRepository = warehouseRepository;
     }

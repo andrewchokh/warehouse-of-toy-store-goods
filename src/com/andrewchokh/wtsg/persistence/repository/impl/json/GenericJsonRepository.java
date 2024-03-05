@@ -25,7 +25,7 @@ class GenericJsonRepository<M extends Model> implements Repository<M> {
     private final Path path;
     private final Type collectionType;
 
-    public GenericJsonRepository(Gson gson, Path path, Type collectionType)
+    GenericJsonRepository(Gson gson, Path path, Type collectionType)
         throws JsonFileIOException {
         this.gson = gson;
         this.path = path;

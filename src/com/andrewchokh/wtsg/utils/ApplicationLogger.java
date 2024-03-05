@@ -15,7 +15,7 @@ public class ApplicationLogger {
     private static Boolean isShowInfo = true;
     private static Boolean isShowWarning = true;
 
-    public static void initializeLogger() {
+    public static void init() {
         if (!isEnabled) {
             return;
         }

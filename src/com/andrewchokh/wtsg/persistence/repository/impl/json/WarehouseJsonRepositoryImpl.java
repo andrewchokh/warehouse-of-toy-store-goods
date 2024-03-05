@@ -9,11 +9,11 @@ import com.google.gson.reflect.TypeToken;
 import java.util.Optional;
 import java.util.Set;
 
-public class WarehouseJsonRepositoryImpl
+final class WarehouseJsonRepositoryImpl
     extends GenericJsonRepository<Warehouse>
     implements WarehouseRepository {
 
-    public WarehouseJsonRepositoryImpl(Gson gson) throws JsonFileIOException {
+    WarehouseJsonRepositoryImpl(Gson gson) throws JsonFileIOException {
         super(gson, JsonPathFactory.WAREHOUSES.getPath(), TypeToken
             .getParameterized(Set.class, User.class)
             .getType());

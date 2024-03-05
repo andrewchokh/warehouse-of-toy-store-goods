@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class GenericService<M extends Model> implements Service<M> {
+class GenericService<M extends Model> implements Service<M> {
 
     private final Repository repository;
 

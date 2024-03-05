@@ -9,11 +9,11 @@ import com.google.gson.reflect.TypeToken;
 import java.util.Optional;
 import java.util.Set;
 
-public class ProductJsonRepositoryImpl
+final class ProductJsonRepositoryImpl
     extends GenericJsonRepository<Product>
     implements ProductRepository {
 
-    public ProductJsonRepositoryImpl(Gson gson) throws JsonFileIOException {
+    ProductJsonRepositoryImpl(Gson gson) throws JsonFileIOException {
         super(gson, JsonPathFactory.PRODUCTS.getPath(), TypeToken
             .getParameterized(Set.class, User.class)
             .getType());
